@@ -23,6 +23,7 @@ model User {
   register_date   DateTime @default(now())
   referralcode    String   @unique
   redeemedPoints  Int
+  isVerified      Boolean
  
   @@map("users")
 }

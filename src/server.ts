@@ -1,13 +1,7 @@
-import express, { Request, Response, Application } from "express";
+import App from "./app";
 
-const app: Application = express();
+import { AuthRoute } from "./routes/userRoute";
 
-const userRouter = require('./routes/userRoute'); 
+const app = new App([new AuthRoute()]);
 
-app.use('/api', userRouter)
-
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen();

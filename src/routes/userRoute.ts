@@ -1,18 +1,34 @@
+import { UserController } from "@/controllers/userController";
+import { Routes } from "@/interfaces/routeInterface";
+import { AuthMiddleware } from "@/middlewares/authMiddleware";
+import { Router } from "express";
 
-import express, { Request, Response } from 'express';
-import { createUser } from '../controllers/userController';
+export class AuthRoute implements Routes {
+  router: Router;
+  path: string;
+  private Auth: UserController;
+  private Guard: AuthMiddleware;
 
-const router = express.Router();
+  constructor() {
+    this.router = Router();
+    this.path = "/auth";
+    this.Auth = new UserController();
+    this.Guard = new AuthMiddleware();
+    this.initializeRoutes();
+  }
 
-router.post('/users', async (req: Request, res: Response) => {
-    
-    try {
-        const newUser = await createUser(req, res);
-        res.status(201).json({ user: newUser, message: "User Created Successfully" })
-    } catch(error) {
-        console.error('Error processing request', error);
-        res.status(500).json({ success: false, message: 'Internal Server Error'})
-    }
-});
-
-export default router;
+  private initializeRoutes(): void {
+    this.router.post(`${this.path}/register`, this.Auth.registerController);
+    this.router.post(`${this.path}/login`, this.Auth.loginController);
+    this.router.get(
+      `${this.path}/verify`,
+      this.Guard.verifyToken,
+      this.Auth.verifyController
+    );
+    this.router.get(
+      `${this.path}/`,
+      this.Guard.verifyToken,
+      this.Auth.refreshTokenController
+    );
+  }
+}

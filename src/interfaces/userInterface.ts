@@ -1,12 +1,14 @@
-export interface CreateUserRequest {
+export interface User {
     email: string;
     username: string;
     password: string;
+    isVerified: Boolean;
     phone?: string;
     image?: string;
+    
 }
 
 export interface CreateUserResponse {
-    user: any; 
+    user: string; 
     message: string;
 }
