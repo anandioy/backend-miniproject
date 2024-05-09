@@ -8,7 +8,3 @@ export interface User {
     
 }
 
-export interface CreateUserResponse {
-    user: string; 
-    message: string;
-}

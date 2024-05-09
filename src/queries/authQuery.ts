@@ -52,9 +52,9 @@ export class AuthQuery {
     email: string,
     password: string,
     phone: string,
-    image: string,
+    // image: string,
     referralcode: string,
-    redeemedPoints: number,
+    // redeemedPoints: number
   ): Promise<User> => {
     try {
       const t = await db.$transaction(async (db) => {
@@ -65,9 +65,9 @@ export class AuthQuery {
               email,
               password,
               phone,
-              image,
               referralcode,
-              redeemedPoints,
+              // image,
+              // redeemedPoints,
               isVerified: false,
             },
           });

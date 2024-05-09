@@ -15,7 +15,8 @@ export class UserQuery {
 
       return user;
     } catch (err) {
-      throw err;
+      console.error("Error fetching user by email:", err);
+      throw new Error("Error fetching user by email");
     }
   };
 }

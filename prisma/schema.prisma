@@ -16,16 +16,15 @@ datasource db {
 model User {
   id              String   @id @default(uuid())
   username        String   @unique
-  email           String   @unique
+  email           String   @unique 
   password        String
   phone           String?
-  image           String
+  // image           String?
   register_date   DateTime @default(now())
   referralcode    String   @unique
-  redeemedPoints  Int
+  redeemedPoints  Int      @default(0)
   isVerified      Boolean
- 
-  @@map("users")
+
 }
 
 model Roles {
@@ -34,10 +33,10 @@ model Roles {
   name            String  
 }
 
-model UserCoupons {
-  id              String  @id @default(uuid())
-  userId          String  @map("user_id")
-  couponId        String
-  isUsed          Boolean
-  expiryDate      DateTime
-}
+// model UserCoupons {
+//   id              String  @id @default(uuid())
+//   userId          String  @map("user_id")
+//   couponId        String
+//   isUsed          Boolean
+//   expiryDate      DateTime
+// }

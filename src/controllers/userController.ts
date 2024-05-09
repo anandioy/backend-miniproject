@@ -14,9 +14,9 @@ export class UserController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { username, email, password, phone, image, referralcode, redeemedPoints }: Auth = req.body;
+      const { username, email, password, phone, referralcode, redeemedPoints }: Auth = req.body;
 
-      const result = await this.auth.registerAction({ username, email, password, phone, image, referralcode, redeemedPoints });
+      const result = await this.auth.registerAction({ username, email, password, phone, referralcode, redeemedPoints });
 
       res.status(200).json({
         message: "Register success",
@@ -33,9 +33,9 @@ export class UserController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { username, email, password, phone, image, referralcode, redeemedPoints }: Auth = req.body;
+      const { username, email, password, phone, referralcode, redeemedPoints}: Auth = req.body;
 
-      const result = await this.auth.loginAction({ username, email, password, phone, image, referralcode, redeemedPoints });
+      const result = await this.auth.loginAction({ username, email, password, phone, referralcode, redeemedPoints });
 
       res.status(200).json({
         message: "Login success",
@@ -73,7 +73,7 @@ export class UserController {
     try {
       const { email } = req.user;
 
-      await this.auth.verifyAction(email);
+    //   await this.auth.verifyAction(email);
 
       res.status(200).json({
         message: "Verify success",

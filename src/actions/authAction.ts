@@ -16,17 +16,30 @@ export class AuthAction {
   authQuery = Container.get(AuthQuery);
   userQuery = Container.get(UserQuery);
 
-  public registerAction = async ({ username, email, password, phone, image, referralcode, redeemedPoints }: Auth) => {
+  private generateRandomCode(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+
+  public registerAction = async ({ username, email, password, phone }: Auth) => {
     try {
       const findUser = await this.userQuery.getUserByEmail(email);
 
       if (findUser)
         throw new HttpException(500, "User with that email already exist");
 
+      const referralcode = this.generateRandomCode(10);
+
       const salt = await genSalt(10);
       const hashPass = await hash(password, salt);
 
-      const result = await this.authQuery.registerQuery(username, email, hashPass, phone, image, referralcode, redeemedPoints);
+      const result = await this.authQuery.registerQuery(username, email, hashPass, phone, referralcode);
 
       return result;
     } catch (err) {
@@ -89,14 +102,3 @@ export class AuthAction {
     }
   };
 }
-
-
-// function generateRandomCode(length: number): string {
-//     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//     let result = '';
-//     const charactersLength = characters.length;
-//     for (let i = 0; i < length; i++) {
-//         result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//     }
-//     return result;
-// }

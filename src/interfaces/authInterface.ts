@@ -3,7 +3,7 @@ export interface Auth {
     email: string;
     password: string;
     phone: string;
-    image: string;
+    // image: string;
     referralcode: string;
     redeemedPoints: number;
   }
