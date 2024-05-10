@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Auth } from "@/interfaces/authInterface";
+import { Auth, LoginAuth } from "@/interfaces/authInterface";
 
 import { AuthAction } from "@/actions/authAction";
 
@@ -33,9 +33,9 @@ export class UserController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { username, email, password, phone, referralcode, redeemedPoints}: Auth = req.body;
+      const { email, password }: LoginAuth = req.body;
 
-      const result = await this.auth.loginAction({ username, email, password, phone, referralcode, redeemedPoints });
+      const result = await this.auth.loginAction({ email, password });
 
       res.status(200).json({
         message: "Login success",
@@ -73,7 +73,7 @@ export class UserController {
     try {
       const { email } = req.user;
 
-    //   await this.auth.verifyAction(email);
+      await this.auth.verifyAction(email);
 
       res.status(200).json({
         message: "Verify success",

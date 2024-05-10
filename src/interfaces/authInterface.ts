@@ -8,3 +8,7 @@ export interface Auth {
     redeemedPoints: number;
   }
   
+  export interface LoginAuth {
+    email: string;
+    password: string;
+  }

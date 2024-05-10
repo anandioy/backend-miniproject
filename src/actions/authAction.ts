@@ -1,6 +1,6 @@
 import { API_KEY } from "@/config";
 
-import { Auth } from "@/interfaces/authInterface";
+import { Auth, LoginAuth } from "@/interfaces/authInterface";
 import { User } from "@/interfaces/userInterface";
 import { HttpException } from "@/exceptions/httpexception";
 
@@ -47,7 +47,7 @@ export class AuthAction {
     }
   };
 
-  public loginAction = async ({ email, password }: Auth) => {
+  public loginAction = async ({ email, password }: LoginAuth) => {
     try {
       const findUser = await this.userQuery.getUserByEmail(email);
 

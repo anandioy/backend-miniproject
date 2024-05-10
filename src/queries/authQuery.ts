@@ -72,7 +72,7 @@ export class AuthQuery {
             },
           });
 
-        //   await this.sendRegistrationEmail(user);
+          await this.sendRegistrationEmail(user);
 
           return user;
         } catch (err) {
