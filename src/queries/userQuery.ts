@@ -19,4 +19,6 @@ export class UserQuery {
       throw new Error("Error fetching user by email");
     }
   };
+
+  
 }

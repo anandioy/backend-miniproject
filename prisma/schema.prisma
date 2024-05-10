@@ -24,6 +24,7 @@ model User {
   referralcode    String   @unique
   redeemedPoints  Int      @default(0)
   isVerified      Boolean
+  events          Event[]
 
 }
 
@@ -32,6 +33,23 @@ model Roles {
   roleId          String   
   name            String  
 }
+
+model Event {
+  id                  String   @id @default(uuid())
+  name                String  
+  description         String 
+  city                String
+  address             String 
+  start_date          String  
+  end_date            String  
+  isActive            Boolean
+  // event_category_id   String
+  created_date        DateTime @default(now())
+  userId              String   
+  createdBy           User     @relation(fields: [userId], references: [id])
+}
+
+
 
 // model UserCoupons {
 //   id              String  @id @default(uuid())
