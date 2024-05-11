@@ -30,10 +30,10 @@ export class AuthRoute implements Routes {
       this.Guard.verifyToken,
       this.Auth.refreshTokenController
     );
-    // this.router.get(
-    //   `${this.path}/profile`,
-    //   this.Guard.verifyToken,
-    //   this.Auth.getUserData
-    // )
+    this.router.get(
+      `${this.path}/profile/`,
+      this.Guard.verifyToken,
+      this.Auth.getUserDataController
+    )
   }
 }

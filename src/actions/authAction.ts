@@ -102,17 +102,17 @@ export class AuthAction {
     }
   };
 
-  // public getUserData = async (email: string): Promise<User | null> => {
-  //   try {
-  //     const findUser = await this.userQuery.getUserByEmail(email);
+  public getUserData = async (email: string): Promise<User | null> => {
+    try {
+      const findUser = await this.userQuery.getUserByEmail(email);
 
-  //     if (!findUser) throw new HttpException(500, "Something went wrong");
+      if (!findUser) throw new HttpException(500, "Something went wrong");
 
-  //    return findUser
+     return findUser
   
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // };
+    } catch (err) {
+      throw err;
+    }
+  };
   
 }

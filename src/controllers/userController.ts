@@ -83,21 +83,21 @@ export class UserController {
     }
   };
 
-  // public getUserDataController = async (
-  //   req: Request, 
-  //   res: Response, 
-  //   next: NextFunction
-  // ): Promise<void> => {
-  //   try {
-  //     const {email} = req.user;
-  //     const user = await this.auth.getUserData(email);
+  public getUserDataController = async (
+    req: Request, 
+    res: Response, 
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const {email} = req.user;
+      const user = await this.auth.getUserData(email);
       
-  //     res.status(200).json({
-  //       message:"User data fetched successfully",
-  //       data: user,
-  //     })
-  //   } catch (err) {
-  //     next (err)
-  //   }
-  // }
+      res.status(200).json({
+        message:"User data fetched successfully",
+        data: user,
+      })
+    } catch (err) {
+      next (err)
+    }
+  }
 }
