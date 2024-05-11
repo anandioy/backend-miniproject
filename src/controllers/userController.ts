@@ -14,9 +14,9 @@ export class UserController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { username, email, password, phone, referralcode, redeemedPoints }: Auth = req.body;
+      const { fullname, email, password, phone, address, referralcode, redeemedPoints }: Auth = req.body;
 
-      const result = await this.auth.registerAction({ username, email, password, phone, referralcode, redeemedPoints });
+      const result = await this.auth.registerAction({ fullname, email, password, phone, address, referralcode, redeemedPoints });
 
       res.status(200).json({
         message: "Register success",
@@ -82,4 +82,22 @@ export class UserController {
       next(err);
     }
   };
+
+  // public getUserDataController = async (
+  //   req: Request, 
+  //   res: Response, 
+  //   next: NextFunction
+  // ): Promise<void> => {
+  //   try {
+  //     const {email} = req.user;
+  //     const user = await this.auth.getUserData(email);
+      
+  //     res.status(200).json({
+  //       message:"User data fetched successfully",
+  //       data: user,
+  //     })
+  //   } catch (err) {
+  //     next (err)
+  //   }
+  // }
 }

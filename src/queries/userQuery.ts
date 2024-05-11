@@ -20,5 +20,20 @@ export class UserQuery {
     }
   };
 
+  // public getUserById = async (id: string): Promise<User | null> => {
+  //   try {
+  //     const user = await db.user.findUnique({
+  //       where: {
+  //         id,
+  //       },
+  //     });
+      
+  //     return user;
+  //   } catch (err) {
+  //     console.error("Error fetching user by id", err);
+  //     throw new Error("Error fetching user by id")
+  //   }
+  // }
+
   
 }

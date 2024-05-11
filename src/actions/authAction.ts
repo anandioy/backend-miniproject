@@ -27,7 +27,7 @@ export class AuthAction {
   }
 
 
-  public registerAction = async ({ username, email, password, phone }: Auth) => {
+  public registerAction = async ({ fullname, email, password, phone, address }: Auth) => {
     try {
       const findUser = await this.userQuery.getUserByEmail(email);
 
@@ -39,7 +39,7 @@ export class AuthAction {
       const salt = await genSalt(10);
       const hashPass = await hash(password, salt);
 
-      const result = await this.authQuery.registerQuery(username, email, hashPass, phone, referralcode);
+      const result = await this.authQuery.registerQuery(fullname, email, hashPass, phone, address, referralcode);
 
       return result;
     } catch (err) {
@@ -101,4 +101,18 @@ export class AuthAction {
       throw err;
     }
   };
+
+  // public getUserData = async (email: string): Promise<User | null> => {
+  //   try {
+  //     const findUser = await this.userQuery.getUserByEmail(email);
+
+  //     if (!findUser) throw new HttpException(500, "Something went wrong");
+
+  //    return findUser
+  
+  //   } catch (err) {
+  //     throw err;
+  //   }
+  // };
+  
 }

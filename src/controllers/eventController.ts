@@ -33,9 +33,9 @@ export class EventController {
   ): Promise<void> => {
     try {
       const { email } = req.user;
-      const { name, description, city, address, start_date, end_date } = req.body;
+      const { name, description, city, address, start_date, end_date, isActive } = req.body;
 
-      const result = await this.event.createEventAction(email, name, description, city, address, start_date, end_date);
+      const result = await this.event.createEventAction(email, name, description, city, address, start_date, end_date, isActive);
 
       res.status(200).json({
         message: "Create Event success",

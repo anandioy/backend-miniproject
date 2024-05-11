@@ -48,10 +48,11 @@ export class AuthQuery {
   };
 
   public registerQuery = async (
-    username: string,
+    fullname: string,
     email: string,
     password: string,
     phone: string,
+    address: string,
     // image: string,
     referralcode: string,
     // redeemedPoints: number
@@ -61,11 +62,12 @@ export class AuthQuery {
         try {
           const user = await db.user.create({
             data: {
-              username,
+              fullname,
               email,
               password,
               phone,
               referralcode,
+              address,
               // image,
               // redeemedPoints,
               isVerified: false,
