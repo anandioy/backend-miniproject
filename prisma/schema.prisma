@@ -26,6 +26,7 @@ model User {
   redeemedPoints  Int      @default(0)
   isVerified      Boolean
   events          Event[]
+  order           Order[]
 
 }
 
@@ -41,15 +42,29 @@ model Event {
   description         String 
   city                String
   address             String 
-  start_date          String  
-  end_date            String  
+  start_date          DateTime  
+  end_date            DateTime  
   isActive            Boolean
   // event_category_id   String
   created_date        DateTime @default(now())
   userId              String   
   createdBy           User     @relation(fields: [userId], references: [id])
+  order               Order[]
 }
 
+model Order {
+  id                String    @id @default(uuid())
+  order_date        DateTime  @default(now())
+  ticketCount       Int
+  ticketPrice       Int
+  // discountPrice     Int
+  // redeemedPoints    Int
+  total_price       Int
+  userId            String
+  orderedBy         User      @relation(fields: [userId], references:[id])
+  eventId           String
+  event             Event     @relation(fields: [eventId], references:[id])
+}
 
 
 // model UserCoupons {

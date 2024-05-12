@@ -25,8 +25,15 @@ export class EventAction {
     }
   };
 
-  public createEventAction = async (email: string, name: string, description: string, 
-    city: string, address: string, start_date: string, end_date: string, isActive: boolean) => {
+  public createEventAction = 
+    async (email: string, 
+          name: string, 
+          description: string, 
+          city: string, 
+          address: string, 
+          start_date: string, 
+          end_date: string, 
+          isActive: boolean) => {
     try {
         if (!name.trim() || !description.trim() || !city.trim() || !address.trim() || !start_date.trim() || !end_date.trim()) {
             throw new HttpException(400, "All fields must be filled");
@@ -36,6 +43,11 @@ export class EventAction {
 
       if (!user) throw new HttpException(500, "Something went wrong");
 
+      const startDate = new Date(start_date);
+      const endDate = new Date (end_date);
+
+      const isActive = this.isEventActive(startDate, endDate);
+
       const result = await this.eventQuery.createEventQuery(user.id, name, description, city, address, start_date, end_date, isActive);
 
       return result;
@@ -43,4 +55,9 @@ export class EventAction {
       throw err;
     }
   };
+
+  private isEventActive(startDate: Date, endDate: Date): boolean {
+    const currentDate = new Date();
+    return startDate <= currentDate && currentDate >= endDate;
+  }
 }

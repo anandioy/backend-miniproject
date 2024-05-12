@@ -1,6 +1,7 @@
 import { db } from "../../prisma/client";
 import { EventInt } from "@/interfaces/eventInterface";
 import { create } from "domain";
+import { start } from "repl";
 import { Service } from "typedi";
 
 @Service()
@@ -26,12 +27,19 @@ export class EventQuery {
     description: string,
     city: string,
     address: string, 
-    start_date: string, 
-    end_date: string,
+    start_date: Date | string, 
+    end_date: Date | string,
     isActive: boolean
   ): Promise<EventInt> => {
-    try {
-      const event = await db.$transaction(async (db) => {
+
+      if(typeof start_date === 'string'){
+        start_date = new Date(start_date)
+      }
+
+      if(typeof end_date === 'string'){
+        end_date = new Date(end_date)
+      }
+      
         try {
           const createdEvent = await db.event.create({
             data: {
@@ -50,13 +58,8 @@ export class EventQuery {
 
           return createdEvent;
         } catch (err) {
-          throw err;
+          console.error("Error creating event", err);
+          throw new Error("Error creating event");
         }
-      });
-      return event;
-    } catch (err) {
-      throw err;
+     }
     }
-  };
-}
-

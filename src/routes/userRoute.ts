@@ -1,4 +1,5 @@
 import { UserController } from "@/controllers/userController";
+import { EventController } from "@/controllers/eventController";
 import { Routes } from "@/interfaces/routeInterface";
 import { AuthMiddleware } from "@/middlewares/authMiddleware";
 import { Router } from "express";
@@ -7,12 +8,16 @@ export class AuthRoute implements Routes {
   router: Router;
   path: string;
   private Auth: UserController;
+
   private Guard: AuthMiddleware;
+  
+  private EventCtrl: EventController;
 
   constructor() {
     this.router = Router();
     this.path = "/auth";
     this.Auth = new UserController();
+    this.EventCtrl = new EventController();
     this.Guard = new AuthMiddleware();
     this.initializeRoutes();
   }
@@ -34,6 +39,11 @@ export class AuthRoute implements Routes {
       `${this.path}/profile/`,
       this.Guard.verifyToken,
       this.Auth.getUserDataController
-    )
+    );
+    this.router.post(
+      `${this.path}/create-event`, 
+      this.Guard.verifyToken,
+      this.EventCtrl.createEventController
+    );
   }
 }
